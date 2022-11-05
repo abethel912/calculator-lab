@@ -1,14 +1,7 @@
-// Make a route in server.jsthat responds to the URI calc. Give the route two params, :num1and :num2.
-
-// Make it so that if the user enters: http://localhost:3000/calc/4/4in the browser, the server sends back a response of 8.
+require('dotenv').config()
 
 const express = require('express')
 const app = express()
-
-const port = 3000
-
-require('dotenv').config()
-
 
 //put in a route called calcquery takes in 2 parameters and a query for operation
 
@@ -20,8 +13,8 @@ app.get('/calcquery/:numOne/:numTwo', (request, response) => {
   // )
   //anything typed inside the URL will always be a string
 
-  const num1 = parseInt(request.params.numOne)
-  const num2 = parseInt(request.params.numTwo)
+  const num1 = parseInt(request.params.numOne) //'2' ----> 2
+  const num2 = parseInt(request.params.numTwo) //'2' ----> 2
   const operation = request.query.operation
 
   if (operation === 'add') {
@@ -34,5 +27,11 @@ app.get('/calcquery/:numOne/:numTwo', (request, response) => {
     response.send(`the divide value is ${num1 / num2}`)
   } else if (operation === 'exponent') {
     response.send(`the exponent value is ${num1 ** num2}`)
+  } else {
+    response.send(`no operation`)
   }
+})
+
+app.listen(process.env.PORT, () => {
+  console.log(`listening to port ${process.env.PORT}`)
 })
